@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Mini curso mayo 2021: plotly y iSEE</title>
+  <meta name="description" content="Mini curso mayo 2021: plotly y iSEE" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Mini curso mayo 2021: plotly y iSEE" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="ComunidadBioInfo/minicurso_mayo_2021" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Mini curso mayo 2021: plotly y iSEE" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="icon_32.png" type="image/x-icon" />
+
+
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path=""><a href="#general"><i class="fa fa-check"></i>General</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#código-de-conducta"><i class="fa fa-check"></i>Código de Conducta</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#datos-generales"><i class="fa fa-check"></i>Datos Generales</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#descripción"><i class="fa fa-check"></i>Descripción</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#pre-requisites"><i class="fa fa-check"></i>Pre-requisites</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#para-quién-va-dirigido-este-mini-curso"><i class="fa fa-check"></i>Para quién va dirigido este mini curso</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#actividades"><i class="fa fa-check"></i>Actividades</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#organizadores"><i class="fa fa-check"></i>Organizadores</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#formulario-de-registro"><i class="fa fa-check"></i>Formulario de registro</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#información-sesión-de-r"><i class="fa fa-check"></i>Información sesión de R</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#licencia"><i class="fa fa-check"></i>Licencia</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mini curso mayo 2021: plotly y iSEE</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Mini curso mayo 2021: plotly y iSEE</h1>
+<p class="author"><em>Michael Jeziorski</em></p>
+<address class="author_afil">
+Universidad Nacional Autónoma de México<br><p class="author"><em>Leonardo Collado-Torres</em></p>
+<address class="author_afil">
+Lieber Institute for Brain Development, Johns Hopkins Medical Campus<br></div>
+<div id="general" class="section level1 unnumbered">
+<h1>General</h1>
+<p>Este es el material del mini curso “Exploración interactiva de datos: plotly y iSEE” ofrecido por la Red Mexicana de Bioinformática.</p>
+<p>Fecha: 14 de mayo de 2021</p>
+<p>Instructores:</p>
+<ul>
+<li><a href="https://twitter.com/kirbykyle1">Dr. Michael Jeziorski</a></li>
+<li><a href="http://lcolladotor.github.io/es">Dr. Leonardo Collado-Torres</a></li>
+</ul>
+<p>Para descargar este material da click en el botón <strong>Code</strong> y selecciona la opción <strong>Download zip</strong>. Si lo prefieres, puedes clonar el repositorio en tu computadora usando git clone desde tu terminal.</p>
+<div id="código-de-conducta" class="section level2 unnumbered">
+<h2>Código de Conducta</h2>
+<p>Seguiremos el código de conducta de la CDSB México <a href="https://comunidadbioinfo.github.io/es/codigo-de-conducta/">comunidadbioinfo.github.io/es/codigo-de-conducta/</a> además del código de conducta de Bioconductor <a href="http://bioconductor.org/about/code-of-conduct/">bioconductor.org/about/code-of-conduct/</a>.</p>
+</div>
+<div id="datos-generales" class="section level2 unnumbered">
+<h2>Datos Generales</h2>
+<p>Duración: 2 horas
+Nivel: Intermedio
+Idioma: Español e Inglés
+Fecha: 14 de mayo de 2021
+Horario: 16:00 a 18:00 (Centro de México)
+Modalidad: Online</p>
+</div>
+<div id="descripción" class="section level2 unnumbered">
+<h2>Descripción</h2>
+<p>Este mini curso va dirigido a personas que han usado R para generar gráficas con paquetes de R para visualización como <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a>. ggplot2 es una excelente herramienta de visualización para cualquier tipo de datos. Sin embargo, ggplot2 genera gráficas estáticas que no permiten explorar de forma interactiva los datos una vez que ya está generada la imagen. Por lo tanto, aprenderemos a usar <a href="https://cran.r-project.org/package=plotly">plotly</a> para convertir las gráficas estáticas generadas por ggplot2 en gráficas interactivas y de los beneficios que estas visualizaciones proveen. Además, en este mini curso aprenderemos a visualizar de forma interactiva datos de RNA-seq y scRNA-seq de forma interactiva con el paquete de Bioconductor <a href="https://bioconductor.org/packages/iSEE">iSEE</a>. De tal forma que aprenderemos a generar páginas web interactivas para datos de secuenciación masiva, que es una herramienta de gran utilidad para realizar análisis exploratorios. Usaremos los paquetes de Bioconductor <a href="https://bioconductor.org/packages/scRNAseq">scRNAseq</a> y <a href="https://bioconductor.org/packages/recount3">recount3</a> para descargar datos públicos que exploraremos con iSEE.</p>
+</div>
+<div id="pre-requisites" class="section level2 unnumbered">
+<h2>Pre-requisites</h2>
+<p>Computadora con al menos 8 GB de memoria RAM, aplicación Zoom <a href="https://zoom.us/download" class="uri">https://zoom.us/download</a>, R versión 4.0 instalada de CRAN <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> (ver video de <a href="https://youtu.be/6knyHlUe1cM" class="uri">https://youtu.be/6knyHlUe1cM</a> sobre como instalar R en macOS o winOS), RStudio versión 1.4 <a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a>, y los siguientes paquetes de R:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Para instalar paquetes</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;remotes&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Sección plotly</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_cran</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_cran</span>(<span class="st">&quot;plotly&quot;</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Sección iSEE</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_cran</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span>version<span class="er">)</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># El anterior comando debe mostrar que estás usando la versión 3.12</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;iSEE&quot;</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;scRNAseq&quot;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;recount3&quot;</span>)</span></code></pre></div>
+</div>
+<div id="para-quién-va-dirigido-este-mini-curso" class="section level2 unnumbered">
+<h2>Para quién va dirigido este mini curso</h2>
+<p>Este mini curso va dirigido a personas que han usado R para generar gráficas estáticas con ggplot2. Con que sepan hacer las gráficas del capítulo 2 de R Graphics Cookbook en <a href="https://r-graphics.org/chapter-quick" class="uri">https://r-graphics.org/chapter-quick</a> es suficiente. Aprenderemos a usar plotly para convertir las gráficas estáticas generadas por ggplot2 en gráficas interactivas. Además, en este mini curso aprenderemos a visualizar de forma interactiva datos de RNA-seq y scRNA-seq de forma interactiva con el paquete de Bioconductor iSEE. Esto será de utilidad para quienes están analizando datos de transcriptómica con paquetes de Bioconductor. Usaremos los paquetes de scRNAseq y recount3 para descargar datos públicos. De forma indirecta esto será útil para quienes quieren explorar datos públicamente disponibles de humano o ratón.</p>
+</div>
+<div id="actividades" class="section level2 unnumbered">
+<h2>Actividades</h2>
+<ul>
+<li>15:45 pm a 16:00 pm: Conéctate a Zoom y configura tu micrófono</li>
+<li>16:00 pm a 16:05 pm: Introducción de parte de la Red Mexicana de Bioinformática</li>
+<li>16:05 pm a 16:15 pm: Código de conducta y cómo usar la plataforma de Zoom</li>
+<li>16:15 pm a 18:00 pm: Actividad del curso</li>
+</ul>
+</div>
+<div id="organizadores" class="section level2 unnumbered">
+<h2>Organizadores</h2>
+<ul>
+<li>Red Mexicana de Bioinformática <a href="https://www.redmexicanadebioinformatica.org/">RMB</a></li>
+<li>Comunidad de Desarrolladores de Software en Bioinformática <a href="https://comunidadbioinfo.github.io">CDSB</a></li>
+</ul>
+</div>
+<div id="formulario-de-registro" class="section level2 unnumbered">
+<h2>Formulario de registro</h2>
+<p><a href="https://forms.gle/xPMSkovBDveyegZt8" class="uri">https://forms.gle/xPMSkovBDveyegZt8</a></p>
+</div>
+<div id="información-sesión-de-r" class="section level2 unnumbered">
+<h2>Información sesión de R</h2>
+<p>Details on the R version used for making this book. The source code is available at <a href="https://github.com/lcolladotor/rnaseq_LCG-UNAM_2021"><code>lcolladotor/rnaseq_LCG-UNAM_2021</code></a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the package at the top of your script</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;sessioninfo&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">##plotly</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;plotly&quot;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">## iSEE</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;iSEE&quot;</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;scRNAseq&quot;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;recount3&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Reproducibility information</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">120</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 4.0.3 (2020-10-10)
+##  os       Ubuntu 20.04 LTS            
+##  system   x86_64, linux-gnu           
+##  ui       X11                         
+##  language (EN)                        
+##  collate  en_US.UTF-8                 
+##  ctype    en_US.UTF-8                 
+##  tz       Etc/UTC                     
+##  date     2021-05-05                  
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+##  package                * version  date       lib source        
+##  AnnotationDbi            1.52.0   2020-10-27 [1] Bioconductor  
+##  AnnotationFilter         1.14.0   2020-10-27 [1] Bioconductor  
+##  AnnotationHub            2.22.1   2021-04-16 [1] Bioconductor  
+##  askpass                  1.1      2019-01-13 [2] RSPM (R 4.0.3)
+##  assertthat               0.2.1    2019-03-21 [2] RSPM (R 4.0.3)
+##  Biobase                * 2.50.0   2020-10-27 [1] Bioconductor  
+##  BiocFileCache            1.14.0   2020-10-27 [1] Bioconductor  
+##  BiocGenerics           * 0.36.1   2021-04-16 [1] Bioconductor  
+##  BiocManager              1.30.10  2019-11-16 [1] RSPM (R 4.0.0)
+##  BiocParallel             1.24.1   2020-11-06 [1] Bioconductor  
+##  BiocVersion              3.12.0   2020-04-27 [2] Bioconductor  
+##  biomaRt                  2.46.3   2021-02-09 [1] Bioconductor  
+##  Biostrings               2.58.0   2020-10-27 [1] Bioconductor  
+##  bit                      4.0.4    2020-08-04 [1] RSPM (R 4.0.3)
+##  bit64                    4.0.5    2020-08-30 [1] RSPM (R 4.0.3)
+##  bitops                   1.0-6    2013-08-17 [1] RSPM (R 4.0.3)
+##  blob                     1.2.1    2020-01-20 [1] RSPM (R 4.0.3)
+##  bookdown                 0.21     2020-10-13 [1] RSPM (R 4.0.2)
+##  cachem                   1.0.4    2021-02-13 [2] RSPM (R 4.0.3)
+##  Cairo                    1.5-12.2 2020-07-07 [1] RSPM (R 4.0.3)
+##  circlize                 0.4.12   2021-01-08 [1] RSPM (R 4.0.3)
+##  cli                      2.3.0    2021-01-31 [2] RSPM (R 4.0.3)
+##  clue                     0.3-58   2020-12-03 [1] RSPM (R 4.0.3)
+##  cluster                  2.1.1    2021-02-14 [3] RSPM (R 4.0.3)
+##  colorspace               2.0-0    2020-11-11 [1] RSPM (R 4.0.3)
+##  colourpicker             1.1.0    2020-09-14 [1] RSPM (R 4.0.2)
+##  ComplexHeatmap           2.6.2    2020-11-12 [1] Bioconductor  
+##  crayon                   1.4.1    2021-02-08 [2] RSPM (R 4.0.3)
+##  curl                     4.3      2019-12-02 [2] RSPM (R 4.0.3)
+##  data.table               1.13.6   2020-12-30 [1] RSPM (R 4.0.3)
+##  DBI                      1.1.1    2021-01-15 [1] RSPM (R 4.0.3)
+##  dbplyr                   2.1.0    2021-02-03 [1] RSPM (R 4.0.3)
+##  DelayedArray             0.16.3   2021-03-24 [1] Bioconductor  
+##  digest                   0.6.27   2020-10-24 [2] RSPM (R 4.0.3)
+##  dplyr                    1.0.4    2021-02-02 [1] RSPM (R 4.0.3)
+##  DT                       0.17     2021-01-06 [2] RSPM (R 4.0.3)
+##  ellipsis                 0.3.1    2020-05-15 [2] RSPM (R 4.0.3)
+##  ensembldb                2.14.1   2021-04-19 [1] Bioconductor  
+##  evaluate                 0.14     2019-05-28 [2] RSPM (R 4.0.3)
+##  ExperimentHub            1.16.1   2021-04-16 [1] Bioconductor  
+##  fastmap                  1.1.0    2021-01-25 [2] RSPM (R 4.0.3)
+##  generics                 0.1.0    2020-10-31 [1] RSPM (R 4.0.3)
+##  GenomeInfoDb           * 1.26.7   2021-04-08 [1] Bioconductor  
+##  GenomeInfoDbData         1.2.4    2021-05-05 [1] Bioconductor  
+##  GenomicAlignments        1.26.0   2020-10-27 [1] Bioconductor  
+##  GenomicFeatures          1.42.3   2021-04-01 [1] Bioconductor  
+##  GenomicRanges          * 1.42.0   2020-10-27 [1] Bioconductor  
+##  GetoptLong               1.0.5    2020-12-15 [1] RSPM (R 4.0.3)
+##  ggplot2                * 3.3.3    2020-12-30 [1] RSPM (R 4.0.3)
+##  ggrepel                  0.9.1    2021-01-15 [1] RSPM (R 4.0.3)
+##  GlobalOptions            0.1.2    2020-06-10 [1] RSPM (R 4.0.3)
+##  glue                     1.4.2    2020-08-27 [2] RSPM (R 4.0.3)
+##  gtable                   0.3.0    2019-03-25 [1] RSPM (R 4.0.3)
+##  hms                      1.0.0    2021-01-13 [1] RSPM (R 4.0.3)
+##  htmltools                0.5.1.1  2021-01-22 [2] RSPM (R 4.0.3)
+##  htmlwidgets              1.5.3    2020-12-10 [2] RSPM (R 4.0.3)
+##  httpuv                   1.5.5    2021-01-13 [1] RSPM (R 4.0.3)
+##  httr                     1.4.2    2020-07-20 [2] RSPM (R 4.0.3)
+##  igraph                   1.2.6    2020-10-06 [1] RSPM (R 4.0.3)
+##  interactiveDisplayBase   1.28.0   2020-10-27 [1] Bioconductor  
+##  IRanges                * 2.24.1   2020-12-12 [1] Bioconductor  
+##  iSEE                   * 2.2.4    2021-02-01 [1] Bioconductor  
+##  jsonlite                 1.7.2    2020-12-09 [2] RSPM (R 4.0.3)
+##  knitr                    1.31     2021-01-27 [2] RSPM (R 4.0.3)
+##  later                    1.1.0.1  2020-06-05 [2] RSPM (R 4.0.3)
+##  lattice                  0.20-41  2020-04-02 [3] CRAN (R 4.0.3)
+##  lazyeval                 0.2.2    2019-03-15 [2] RSPM (R 4.0.3)
+##  lifecycle                1.0.0    2021-02-15 [2] RSPM (R 4.0.3)
+##  magrittr                 2.0.1    2020-11-17 [2] RSPM (R 4.0.3)
+##  Matrix                   1.3-2    2021-01-06 [3] RSPM (R 4.0.3)
+##  MatrixGenerics         * 1.2.1    2021-01-30 [1] Bioconductor  
+##  matrixStats            * 0.58.0   2021-01-29 [1] RSPM (R 4.0.3)
+##  memoise                  2.0.0    2021-01-26 [2] RSPM (R 4.0.3)
+##  mgcv                     1.8-34   2021-02-16 [3] RSPM (R 4.0.3)
+##  mime                     0.10     2021-02-13 [2] RSPM (R 4.0.3)
+##  miniUI                   0.1.1.1  2018-05-18 [1] RSPM (R 4.0.3)
+##  munsell                  0.5.0    2018-06-12 [1] RSPM (R 4.0.3)
+##  nlme                     3.1-152  2021-02-04 [3] RSPM (R 4.0.3)
+##  openssl                  1.4.3    2020-09-18 [2] RSPM (R 4.0.3)
+##  pillar                   1.4.7    2020-11-20 [2] RSPM (R 4.0.3)
+##  pkgconfig                2.0.3    2019-09-22 [2] RSPM (R 4.0.3)
+##  plotly                 * 4.9.3    2021-01-10 [1] RSPM (R 4.0.3)
+##  png                      0.1-7    2013-12-03 [1] RSPM (R 4.0.3)
+##  prettyunits              1.1.1    2020-01-24 [2] RSPM (R 4.0.3)
+##  progress                 1.2.2    2019-05-16 [1] RSPM (R 4.0.3)
+##  promises                 1.2.0.1  2021-02-11 [2] RSPM (R 4.0.3)
+##  ProtGenerics             1.22.0   2020-10-27 [1] Bioconductor  
+##  purrr                    0.3.4    2020-04-17 [2] RSPM (R 4.0.3)
+##  R.methodsS3              1.8.1    2020-08-26 [1] RSPM (R 4.0.3)
+##  R.oo                     1.24.0   2020-08-26 [1] RSPM (R 4.0.3)
+##  R.utils                  2.10.1   2020-08-26 [1] RSPM (R 4.0.3)
+##  R6                       2.5.0    2020-10-28 [2] RSPM (R 4.0.3)
+##  rappdirs                 0.3.3    2021-01-31 [2] RSPM (R 4.0.3)
+##  RColorBrewer             1.1-2    2014-12-07 [1] RSPM (R 4.0.3)
+##  Rcpp                     1.0.6    2021-01-15 [2] RSPM (R 4.0.3)
+##  RCurl                    1.98-1.2 2020-04-18 [1] RSPM (R 4.0.3)
+##  recount3               * 1.0.7    2021-02-11 [1] Bioconductor  
+##  rintrojs                 0.2.2    2019-05-29 [1] RSPM (R 4.0.0)
+##  rjson                    0.2.20   2018-06-08 [1] RSPM (R 4.0.3)
+##  rlang                    0.4.10   2020-12-30 [2] RSPM (R 4.0.3)
+##  rmarkdown                2.6      2020-12-14 [1] RSPM (R 4.0.3)
+##  Rsamtools                2.6.0    2020-10-27 [1] Bioconductor  
+##  RSQLite                  2.2.3    2021-01-24 [1] RSPM (R 4.0.3)
+##  rstudioapi               0.13     2020-11-12 [2] RSPM (R 4.0.3)
+##  rtracklayer              1.50.0   2020-10-27 [1] Bioconductor  
+##  S4Vectors              * 0.28.1   2020-12-09 [1] Bioconductor  
+##  scales                   1.1.1    2020-05-11 [1] RSPM (R 4.0.3)
+##  scRNAseq               * 2.4.0    2020-11-09 [1] Bioconductor  
+##  sessioninfo            * 1.1.1    2018-11-05 [1] RSPM (R 4.0.3)
+##  shape                    1.4.5    2020-09-13 [1] RSPM (R 4.0.3)
+##  shiny                    1.6.0    2021-01-25 [1] RSPM (R 4.0.3)
+##  shinyAce                 0.4.1    2019-09-24 [1] RSPM (R 4.0.0)
+##  shinydashboard           0.7.1    2018-10-17 [1] RSPM (R 4.0.3)
+##  shinyjs                  2.0.0    2020-09-09 [1] RSPM (R 4.0.3)
+##  shinyWidgets             0.5.7    2021-02-03 [1] RSPM (R 4.0.3)
+##  SingleCellExperiment   * 1.12.0   2020-10-27 [1] Bioconductor  
+##  stringi                  1.5.3    2020-09-09 [2] RSPM (R 4.0.3)
+##  stringr                  1.4.0    2019-02-10 [2] RSPM (R 4.0.3)
+##  SummarizedExperiment   * 1.20.0   2020-10-27 [1] Bioconductor  
+##  tibble                   3.0.6    2021-01-29 [2] RSPM (R 4.0.3)
+##  tidyr                    1.1.2    2020-08-27 [1] RSPM (R 4.0.3)
+##  tidyselect               1.1.0    2020-05-11 [1] RSPM (R 4.0.3)
+##  vctrs                    0.3.6    2020-12-17 [2] RSPM (R 4.0.3)
+##  vipor                    0.4.5    2017-03-22 [1] RSPM (R 4.0.0)
+##  viridisLite              0.3.0    2018-02-01 [1] RSPM (R 4.0.3)
+##  withr                    2.4.1    2021-01-26 [2] RSPM (R 4.0.3)
+##  xfun                     0.21     2021-02-10 [2] RSPM (R 4.0.3)
+##  XML                      3.99-0.5 2020-07-23 [1] RSPM (R 4.0.3)
+##  xml2                     1.3.2    2020-04-23 [2] RSPM (R 4.0.3)
+##  xtable                   1.8-4    2019-04-21 [1] RSPM (R 4.0.3)
+##  XVector                  0.30.0   2020-10-27 [1] Bioconductor  
+##  yaml                     2.2.1    2020-02-01 [2] RSPM (R 4.0.3)
+##  zlibbioc                 1.36.0   2020-10-27 [1] Bioconductor  
+## 
+## [1] /__w/_temp/Library
+## [2] /usr/local/lib/R/site-library
+## [3] /usr/local/lib/R/library</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">proc.time</span>()</span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##  13.719   0.647  16.745</code></pre>
+<p>Fecha de la última actualización de esta página: 2021-05-05 01:36:31.</p>
+</div>
+<div id="licencia" class="section level2 unnumbered">
+<h2>Licencia</h2>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
