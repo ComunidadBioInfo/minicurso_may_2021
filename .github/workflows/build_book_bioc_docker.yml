@@ -117,7 +117,7 @@ jobs:
         run: |
           ## For building the website & getting the R session info
           ## Edit as necessary with other packages in the future
-          BiocManager::install(c("bookdown", "sessioninfo", "BiocStyle", "biocthis", "here", "postcards", "pryr", "usethis", "SummarizedExperiment", "iSEE", "edgeR", "ExploreModelMatrix", "limma", "recount3", "ggplot2", "patchwork", "pheatmap","RColorBrewer", "spatialLIBD"))
+          BiocManager::install(c("bookdown", "sessioninfo", "BiocStyle", "biocthis", "ggplot2", "plotly", "iSEE", "scRNAseq", "recount3"))
         shell: Rscript {0}
 
       - name: Session info
