@@ -105,6 +105,7 @@ jobs:
       - name: Install BiocManager
         run: |
           message(paste('****', Sys.time(), 'installing BiocManager ****'))
+          install.packages("remotes")
           remotes::install_cran("BiocManager")
         shell: Rscript {0}
 
