@@ -86,7 +86,7 @@ Este mini curso va dirigido a personas que han usado R para generar gráficas es
 
 * Comunidad de Desarrolladores de Software en Bioinformática [CDSB](https://twitter.com/CDSBMexico)
 * Red Mexicana de Bioinformática [RMB](https://twitter.com/RBioinformatica)
-* Nodo Nacional de Bioinformática en la UNAM ([NNB-CCG](https://twitter.com/nnb_unam))
+* Nodo Nacional de Bioinformática en la UNAM [NNB-CCG](https://twitter.com/nnb_unam)
 
 
 ## Formulario de registro  {-}
