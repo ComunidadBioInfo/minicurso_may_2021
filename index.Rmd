@@ -19,7 +19,7 @@ output:
 
 # General {-}
 
-Este es el material del mini curso "Exploración interactiva de datos: plotly y iSEE" ofrecido por la Red Mexicana de Bioinformática.
+Este es el material del mini curso "Exploración interactiva de datos: plotly y iSEE" ofrecido por la Red Mexicana de Bioinformática (RMB) y la Comunidad de Desarrolladores de Software en Bioinformática (CDSB).
 
 Fecha: 14 de mayo de 2021
 
@@ -28,9 +28,6 @@ Instructores:
 * [Dr. Michael Jeziorski](https://twitter.com/kirbykyle1)
 * [Dr. Leonardo Collado-Torres](http://lcolladotor.github.io/es)
 
-Para descargar este material da click en el botón **Code** y selecciona la opción **Download zip**. Si lo prefieres, puedes clonar el repositorio en tu computadora usando git clone desde tu terminal.
-
-
 ## Código de Conducta {-}
 
 Seguiremos el código de conducta de la CDSB México [comunidadbioinfo.github.io/es/codigo-de-conducta/](https://comunidadbioinfo.github.io/es/codigo-de-conducta/) además del código de conducta de Bioconductor [bioconductor.org/about/code-of-conduct/](http://bioconductor.org/about/code-of-conduct/). 
@@ -38,19 +35,19 @@ Seguiremos el código de conducta de la CDSB México [comunidadbioinfo.github.io
 
 ## Datos Generales {-}
 
-Duración: 2 horas
-Nivel: Intermedio
-Idioma: Español e Inglés
-Fecha:  14 de mayo de 2021
-Horario: 16:00 a 18:00 (Centro de México)
-Modalidad: Online
+* Duración: 2 horas
+* Nivel: Intermedio
+* Idioma: Español e Inglés
+* Fecha:  14 de mayo de 2021
+* Horario: 16:00 a 18:00 (Centro de México)
+* Modalidad: Online
 
 ## Descripción {-}
 
 Este mini curso va dirigido a personas que han usado R para generar gráficas con paquetes de R para visualización como [ggplot2](https://cran.r-project.org/package=ggplot2). ggplot2 es una excelente herramienta de visualización para cualquier tipo de datos. Sin embargo, ggplot2 genera gráficas estáticas que no permiten explorar de forma interactiva los datos una vez que ya está generada la imagen. Por lo tanto, aprenderemos a usar [plotly](https://cran.r-project.org/package=plotly) para convertir las gráficas estáticas generadas por ggplot2 en gráficas interactivas y de los beneficios que estas visualizaciones proveen. Además, en este mini curso aprenderemos a visualizar de forma interactiva datos de RNA-seq y scRNA-seq de forma interactiva con el paquete de Bioconductor [iSEE](https://bioconductor.org/packages/iSEE). De tal forma que aprenderemos a generar páginas web interactivas para datos de secuenciación masiva, que es una herramienta de gran utilidad para realizar análisis exploratorios. Usaremos los paquetes de Bioconductor [scRNAseq](https://bioconductor.org/packages/scRNAseq) y [recount3](https://bioconductor.org/packages/recount3) para descargar datos públicos que exploraremos con iSEE.
 
 
-## Pre-requisites {-}
+## Pre-requisitos {-}
 
 Computadora con al menos 8 GB de memoria RAM, aplicación Zoom https://zoom.us/download, R versión 4.0 instalada de CRAN https://cran.r-project.org/ (ver video de https://youtu.be/6knyHlUe1cM sobre como instalar R en macOS o winOS), RStudio versión 1.4 https://www.rstudio.com/products/rstudio/download/#download, y los siguientes paquetes de R:
 
@@ -61,6 +58,7 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
   }
 
 ## Sección plotly
+remotes::install_cran("palmerpenguins")
 remotes::install_cran("ggplot2")
 remotes::install_cran("plotly")
 
@@ -73,7 +71,7 @@ BiocManager::install("scRNAseq")
 BiocManager::install("recount3")
 ```
 
-## Para quién va dirigido este mini curso{-}
+## Para quién va dirigido este mini curso {-}
 
 Este mini curso va dirigido a personas que han usado R para generar gráficas estáticas con ggplot2. Con que sepan hacer las gráficas del capítulo 2 de R Graphics Cookbook en https://r-graphics.org/chapter-quick es suficiente. Aprenderemos a usar plotly para convertir las gráficas estáticas generadas por ggplot2 en gráficas interactivas. Además, en este mini curso aprenderemos a visualizar de forma interactiva datos de RNA-seq y scRNA-seq de forma interactiva con el paquete de Bioconductor iSEE. Esto será de utilidad para quienes están analizando datos de transcriptómica con paquetes de Bioconductor. Usaremos los paquetes de scRNAseq y recount3 para descargar datos públicos. De forma indirecta esto será útil para quienes quieren explorar datos públicamente disponibles de humano o ratón.
 
@@ -102,7 +100,8 @@ Details on the R version used for making this book. The source code is available
 ## Load the package at the top of your script
 library("sessioninfo")
 
-##plotly
+## plotly
+library("palmerpenguins")
 library("ggplot2")
 library("plotly")
 

@@ -1,0 +1,29 @@
+# Exploración interactiva de datos con plotly
+
+
+```{r "cargar_librerias_plotly"}
+## Carguemos las librerías que vamos a usar para esta parte del mini curso
+library("ggplot2")
+library("plotly")
+```
+
+
+Ejemplo
+
+```{r "plotly_ejemplo"}
+## De ?plotly::ggplotly
+ggpenguins <- qplot(bill_length_mm,
+    body_mass_g,
+    data = palmerpenguins::penguins,
+    color = species
+)
+
+## Versión estática creada con ggplot2
+ggpenguins
+```
+
+```{r "plotly_ejemplo_parte2"}
+## Ahora  en versión interactiva
+ggplotly(ggpenguins)
+```
+

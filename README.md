@@ -1,6 +1,6 @@
 # Mini curso mayo 2021: Exploración interactiva de datos: plotly y iSEE
 
-Este es el material del mini curso "Exploración interactiva de datos: plotly y iSEE" ofrecido por la Red Mexicana de Bioinformática.
+Este es el material del mini curso "Exploración interactiva de datos: plotly y iSEE" ofrecido por la Red Mexicana de Bioinformática (RMB) y la Comunidad de Desarrolladores de Software en Bioinformática (CDSB).
 
 Fecha: 14 de mayo de 2021
 
