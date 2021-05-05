@@ -1,5 +1,6 @@
 # Exploración interactiva de datos con plotly
 
+_El código de R de este archivo está disponbie vía [GitHub](https://github.com/ComunidadBioInfo/minicurso_mayo_2021/blob/main/01_plotly.R)._
 
 ```{r "cargar_librerias_plotly"}
 ## Carguemos las librerías que vamos a usar para esta parte del mini curso
