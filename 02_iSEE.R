@@ -42,9 +42,12 @@ rowData(sce)$var_log <- apply(logcounts(sce), 1, var)
 rowData(sce)
 
 
-## ----'recount3_quick_example'------------------------------------------------------------------------------------------------------
+## ----'recount3_quick_example', message = FALSE-------------------------------------------------------------------------------------
 ## Revisemos todos los proyectos con datos de humano en recount3
 human_projects <- available_projects()
+
+## Veamos cuantos proyectos hay
+nrow(human_projects)
 
 ## Encuentra tu proyecto de interés. Aquí usaremos
 ## SRP009615 de ejemplo

@@ -89,9 +89,12 @@ Para que tengan más datos de ejemplo, usaremos datos del proyecto de `recount3`
 
 <a href="https://f1000research.com/articles/6-1558"><img src="https://f1000researchdata.s3.amazonaws.com/manuscripts/13233/8a00ef7e-4c4b-4d53-bd4f-2a28a23ec216_figure2.gif" /></a>
 
-```{r 'recount3_quick_example'}
+```{r 'recount3_quick_example', message = FALSE}
 ## Revisemos todos los proyectos con datos de humano en recount3
 human_projects <- available_projects()
+
+## Veamos cuantos proyectos hay
+nrow(human_projects)
 
 ## Encuentra tu proyecto de interés. Aquí usaremos
 ## SRP009615 de ejemplo
