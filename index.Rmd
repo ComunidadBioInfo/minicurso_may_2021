@@ -1,5 +1,5 @@
 ---
-title: "Mini curso mayo 2021: plotly y iSEE"
+title: "Mini curso mayo 2021: plotly e iSEE"
 author: 
   - name: Michael Jeziorski
     affiliation:
