@@ -16,6 +16,7 @@
 ## BiocManager::install("iSEE")
 ## BiocManager::install("scRNAseq")
 ## BiocManager::install("scater")
+## BiocManager::install("Rtsne")
 ## BiocManager::install("recount3")
 
 
@@ -32,6 +33,7 @@ library("plotly")
 library("iSEE")
 library("scRNAseq")
 library("scater")
+library("Rtsne")
 library("recount3")
 
 

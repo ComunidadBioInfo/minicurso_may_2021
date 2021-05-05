@@ -7,11 +7,14 @@ library("SingleCellExperiment")
 ## library("SpatialExperiment") ## A partir de Bioconductor 3.13
 ## que estará disponible a finales de mayo 2021
 
-## Para visualizar los datos
-library("iSEE")
+## Para descargar y procesar datos
 library("scRNAseq")
 library("scater")
+library("Rtsne")
 library("recount3")
+
+## Para visualizar los datos
+library("iSEE")
 
 
 ## ----"datos_scRNAseq"--------------------------------------------------------------------------------------------------------------
