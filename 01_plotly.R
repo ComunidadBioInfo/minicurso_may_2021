@@ -1,5 +1,6 @@
 ## ----"cargar_librerias_plotly"-----------------------------------------------------------------------------------------------------
 ## Carguemos las librerías que vamos a usar para esta parte del mini curso
+library("palmerpenguins")
 library("ggplot2")
 library("plotly")
 

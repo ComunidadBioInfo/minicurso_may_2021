@@ -15,6 +15,7 @@
 ## # El anterior comando debe mostrar que estás usando la versión 3.12
 ## BiocManager::install("iSEE")
 ## BiocManager::install("scRNAseq")
+## BiocManager::install("scater")
 ## BiocManager::install("recount3")
 
 
@@ -30,6 +31,7 @@ library("plotly")
 ## iSEE
 library("iSEE")
 library("scRNAseq")
+library("scater")
 library("recount3")
 
 

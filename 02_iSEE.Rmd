@@ -57,7 +57,7 @@ Los datos que descargamos son datos digamos que crudos, así que necesitamos cor
 
 ```{r "procesar_datos"}
 ## Normalizamos los datos
-sce <- logNormCounts(sce, exprs_values="tophat_counts")
+sce <- logNormCounts(sce, exprs_values = "tophat_counts")
 
 ## Obtenemos dimensiones reducidas usando primero un análisis de componentes
 ## principales y luego con tSNE
@@ -146,7 +146,7 @@ if (interactive()) {
 
 ```{r "explora_rse_gene_SRP009615"}
 if (interactive()) {
-    iSEE(rse_gene_SRP009615)
+    iSEE(rse_gene_SRP009615, appTitle = "iSEE con datos de recount3")
 }
 ```
 
