@@ -17,7 +17,7 @@ library("recount3")
 library("iSEE")
 
 
-## ----"datos_scRNAseq"--------------------------------------------------------------------------------------------------------------
+## ----"datos_scRNAseq", message = FALSE---------------------------------------------------------------------------------------------
 ## Descarguemos datos de ejemplo de scRNA-seq del proyecto de
 ## Tasic et al 2016
 sce <- ReprocessedAllenData(assays = "tophat_counts")

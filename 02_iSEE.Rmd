@@ -51,7 +51,7 @@ library("iSEE")
 
 A continuación vamos a descargar unos datos de scRNA-seq que usan en los ejemplos de `iSEE` en http://bioconductor.org/packages/release/bioc/vignettes/iSEE/inst/doc/basic.html#2_Setting_up_the_data. `scRNAseq` usa otro paquete de Bioconductor llamado `ExperimentHub` para descargar los archivos y organizarlos en un lugar de tal forma que si corremos el código otra vez en la misma computadora, no tendremos que volver a descargar los archivos. Es decir, crea un cache local.
 
-```{r "datos_scRNAseq"}
+```{r "datos_scRNAseq", message = FALSE}
 ## Descarguemos datos de ejemplo de scRNA-seq del proyecto de
 ## Tasic et al 2016
 sce <- ReprocessedAllenData(assays = "tophat_counts")
