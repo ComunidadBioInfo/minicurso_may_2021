@@ -1,2 +1,9 @@
 exploración-interactiva-de-datos-con-plotly
 exploración-interactiva-de-datos-transcriptómicos-con-isee
+infraestructura-para-datos-tránscriptomicos
+datos-públicos
+explorando-con-isee
+sce
+ejercicio
+datos-reales
+más-material

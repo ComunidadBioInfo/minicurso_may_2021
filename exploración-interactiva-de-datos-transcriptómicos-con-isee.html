@@ -149,7 +149,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#licencia"><i class="fa fa-check"></i>Licencia</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="exploración-interactiva-de-datos-con-plotly.html"><a href="exploración-interactiva-de-datos-con-plotly.html"><i class="fa fa-check"></i><b>1</b> Exploración interactiva de datos con plotly</a></li>
-<li class="chapter" data-level="2" data-path="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><i class="fa fa-check"></i><b>2</b> Exploración interactiva de datos transcriptómicos con iSEE</a></li>
+<li class="chapter" data-level="2" data-path="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><i class="fa fa-check"></i><b>2</b> Exploración interactiva de datos transcriptómicos con iSEE</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#infraestructura-para-datos-tránscriptomicos"><i class="fa fa-check"></i><b>2.1</b> Infraestructura para datos tránscriptomicos</a></li>
+<li class="chapter" data-level="2.2" data-path="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#datos-públicos"><i class="fa fa-check"></i><b>2.2</b> Datos públicos</a></li>
+<li class="chapter" data-level="2.3" data-path="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#explorando-con-isee"><i class="fa fa-check"></i><b>2.3</b> Explorando con iSEE</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#sce"><i class="fa fa-check"></i><b>2.3.1</b> sce</a></li>
+<li class="chapter" data-level="2.3.2" data-path="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#ejercicio"><i class="fa fa-check"></i><b>2.3.2</b> Ejercicio</a></li>
+<li class="chapter" data-level="2.3.3" data-path="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#datos-reales"><i class="fa fa-check"></i><b>2.3.3</b> Datos reales</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="exploración-interactiva-de-datos-transcriptómicos-con-isee.html"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#más-material"><i class="fa fa-check"></i><b>2.4</b> Más material</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -171,11 +182,223 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">2</span> Exploración interactiva de datos transcriptómicos con iSEE</h1>
 <p><em>El código de R de este archivo está disponbie vía <a href="https://github.com/ComunidadBioInfo/minicurso_mayo_2021/blob/main/02_iSEE.R">GitHub</a>.</em></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Carguemos las librerías que vamos a usar para esta parte del mini curso</span></span>
-<span id="cb11-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;iSEE&quot;</span>)</span>
-<span id="cb11-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;scRNAseq&quot;</span>)</span>
-<span id="cb11-4"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;recount3&quot;</span>)</span></code></pre></div>
+<span id="cb11-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Infraestructura</span></span>
+<span id="cb11-4"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;SummarizedExperiment&quot;</span>)</span>
+<span id="cb11-5"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;SingleCellExperiment&quot;</span>)</span>
+<span id="cb11-6"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="do">## library(&quot;SpatialExperiment&quot;) ## A partir de Bioconductor 3.13</span></span>
+<span id="cb11-7"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="do">## que estará disponible a finales de mayo 2021</span></span>
+<span id="cb11-8"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Para descargar y procesar datos</span></span>
+<span id="cb11-10"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;scRNAseq&quot;</span>)</span>
+<span id="cb11-11"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;scater&quot;</span>)</span>
+<span id="cb11-12"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;Rtsne&quot;</span>)</span>
+<span id="cb11-13"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;recount3&quot;</span>)</span>
+<span id="cb11-14"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Para visualizar los datos</span></span>
+<span id="cb11-16"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;iSEE&quot;</span>)</span></code></pre></div>
+<div id="infraestructura-para-datos-tránscriptomicos" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Infraestructura para datos tránscriptomicos</h2>
+<ul>
+<li><a href="https://bioconductor.org/packages/SummarizedExperiment">SummarizedExperiment</a></li>
+</ul>
+<p><img src="https://www.researchgate.net/profile/Pascal-Martin-6/publication/274256021/figure/fig3/AS:294713816043527@1447276657416/Structure-of-summarizedExperiment-objects.png" width="600px" /></p>
+<ul>
+<li><a href="https://bioconductor.org/packages/SingleCellExperiment">SingleCellExperiment</a></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Bioconductor/OSCABase/images/images/SingleCellExperiment.png" width="600px" /></p>
+<ul>
+<li>Revisemos las diapositivas 31 a 43 de la siguiente presentación</li>
+</ul>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+Thanks to Pete <a href="https://twitter.com/PeteHaitch?ref_src=twsrc%5Etfw"><span class="citation">@PeteHaitch</span></a> &amp; <a href="https://twitter.com/hashtag/OSCA?src=hash&amp;ref_src=twsrc%5Etfw">#OSCA</a> ❤️ I'm now ready for my Human Cell Atlas - Latin America presentation on “Getting started with <a href="https://twitter.com/hashtag/scRNA?src=hash&amp;ref_src=twsrc%5Etfw">#scRNA</a>-seq analyses with <a href="https://twitter.com/Bioconductor?ref_src=twsrc%5Etfw"><span class="citation">@Bioconductor</span></a>” 🎉<br><br>📔 <a href="https://t.co/nEWZcnadyh">https://t.co/nEWZcnadyh</a><br>💻 <a href="https://t.co/7pXDTQRpF0">https://t.co/7pXDTQRpF0</a><a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/CDSBMexico?ref_src=twsrc%5Etfw"><span class="citation">@CDSBMexico</span></a> <a href="https://twitter.com/humancellatlas?ref_src=twsrc%5Etfw"><span class="citation">@humancellatlas</span></a> <a href="https://twitter.com/hashtag/LatAm?src=hash&amp;ref_src=twsrc%5Etfw">#LatAm</a> <a href="https://t.co/Otg8rdSlYW">pic.twitter.com/Otg8rdSlYW</a>
+</p>
+— 🇲🇽 Leonardo Collado-Torres (<span class="citation">@lcolladotor</span>) <a href="https://twitter.com/lcolladotor/status/1388934387090305025?ref_src=twsrc%5Etfw">May 2, 2021</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<ul>
+<li>Incluso va más allá con <a href="https://bioconductor.org/packages/SpatialExperiment">SpatialExperiment</a></li>
+</ul>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+Are you working with spatial transcriptomics data such as Visium from <a href="https://twitter.com/10xGenomics?ref_src=twsrc%5Etfw"><span class="citation">@10xGenomics</span></a>? Then you'll be interested in <a href="https://twitter.com/hashtag/SpatialExperiment?src=hash&amp;ref_src=twsrc%5Etfw">#SpatialExperiment</a> 📦 led by <a href="https://twitter.com/drighelli?ref_src=twsrc%5Etfw"><span class="citation">@drighelli</span></a> <a href="https://twitter.com/lmwebr?ref_src=twsrc%5Etfw"><span class="citation">@lmwebr</span></a> <a href="https://twitter.com/CrowellHL?ref_src=twsrc%5Etfw"><span class="citation">@CrowellHL</span></a> with contributions by <a href="https://twitter.com/PardoBree?ref_src=twsrc%5Etfw"><span class="citation">@PardoBree</span></a> <a href="https://twitter.com/shazanfar?ref_src=twsrc%5Etfw"><span class="citation">@shazanfar</span></a> A Lun <a href="https://twitter.com/stephaniehicks?ref_src=twsrc%5Etfw"><span class="citation">@stephaniehicks</span></a> <a href="https://twitter.com/drisso1893?ref_src=twsrc%5Etfw"><span class="citation">@drisso1893</span></a> 🌟<br><br>📜 <a href="https://t.co/r36qlakRJe">https://t.co/r36qlakRJe</a> <a href="https://t.co/cWIiwLFitV">pic.twitter.com/cWIiwLFitV</a>
+</p>
+— 🇲🇽 Leonardo Collado-Torres (<span class="citation">@lcolladotor</span>) <a href="https://twitter.com/lcolladotor/status/1355208674856329218?ref_src=twsrc%5Etfw">January 29, 2021</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<ul>
+<li>Usamos <code>SpatialExperiment</code> para hacer <a href="https://bioconductorl.org/packages/spatialLIBD">spatialLIBD</a>. En este proyecto participó Brenda Pardo, que es una estudiante de tercer año de la LCG-EJ-UNAM en el LIIGH-UNAM.</li>
+</ul>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+Our paper describing our package <a href="https://twitter.com/hashtag/spatialLIBD?src=hash&amp;ref_src=twsrc%5Etfw">#spatialLIBD</a> is finally out! 🎉🎉🎉<br><br>spatialLIBD is an <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> / <a href="https://twitter.com/Bioconductor?ref_src=twsrc%5Etfw"><span class="citation">@Bioconductor</span></a> package to visualize spatial transcriptomics data.<br>⁰<br>This is especially exciting for me as it is my first paper as a first author 🦑.<a href="https://t.co/COW013x4GA">https://t.co/COW013x4GA</a><br><br>1/9 <a href="https://t.co/xevIUg3IsA">pic.twitter.com/xevIUg3IsA</a>
+</p>
+— Brenda Pardo (<span class="citation">@PardoBree</span>) <a href="https://twitter.com/PardoBree/status/1388253938391175173?ref_src=twsrc%5Etfw">April 30, 2021</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<div id="datos-públicos" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Datos públicos</h2>
+<ul>
+<li><code>scRNAseq</code></li>
+</ul>
+<p><a href="https://bioconductor.org/packages/scRNAseq">scRNAseq</a> es un paquete de Bioconductor que creó Aaron Lun para poder tener varios datos de ejemplo de scRNA-seq (secuenciación masiva de ARN de células únicas) para poder demostrar sus métodos estadísticos. Ese paquete lo usan en <code>iSEE</code> para obtener datos de ejemplo y también lo usan mucho en <em>Orchestrating Single Cell Analysis (OSCA) with Bioconductor</em> <a href="http://bioconductor.org/books/release/OSCA/" class="uri">http://bioconductor.org/books/release/OSCA/</a>.</p>
+<p>A continuación vamos a descargar unos datos de scRNA-seq que usan en los ejemplos de <code>iSEE</code> en <a href="http://bioconductor.org/packages/release/bioc/vignettes/iSEE/inst/doc/basic.html#2_Setting_up_the_data" class="uri">http://bioconductor.org/packages/release/bioc/vignettes/iSEE/inst/doc/basic.html#2_Setting_up_the_data</a>. <code>scRNAseq</code> usa otro paquete de Bioconductor llamado <code>ExperimentHub</code> para descargar los archivos y organizarlos en un lugar de tal forma que si corremos el código otra vez en la misma computadora, no tendremos que volver a descargar los archivos. Es decir, crea un cache local.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Descarguemos datos de ejemplo de scRNA-seq del proyecto de</span></span>
+<span id="cb12-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Tasic et al 2016</span></span>
+<span id="cb12-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb12-3" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">ReprocessedAllenData</span>(<span class="at">assays =</span> <span class="st">&quot;tophat_counts&quot;</span>)</span></code></pre></div>
+<pre><code>## using temporary cache /tmp/RtmpJJ44la/BiocFileCache</code></pre>
+<pre><code>## snapshotDate(): 2020-10-27</code></pre>
+<pre><code>## see ?scRNAseq and browseVignettes(&#39;scRNAseq&#39;) for documentation</code></pre>
+<pre><code>## downloading 1 resources</code></pre>
+<pre><code>## retrieving 1 resource</code></pre>
+<pre><code>## loading from cache</code></pre>
+<pre><code>## see ?scRNAseq and browseVignettes(&#39;scRNAseq&#39;) for documentation</code></pre>
+<pre><code>## downloading 1 resources</code></pre>
+<pre><code>## retrieving 1 resource</code></pre>
+<pre><code>## loading from cache</code></pre>
+<pre><code>## see ?scRNAseq and browseVignettes(&#39;scRNAseq&#39;) for documentation</code></pre>
+<pre><code>## downloading 1 resources</code></pre>
+<pre><code>## retrieving 1 resource</code></pre>
+<pre><code>## loading from cache</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb27-1" aria-hidden="true" tabindex="-1"></a>sce</span></code></pre></div>
+<pre><code>## class: SingleCellExperiment 
+## dim: 20816 379 
+## metadata(2): SuppInfo which_qc
+## assays(1): tophat_counts
+## rownames(20816): 0610007P14Rik 0610009B22Rik ... Zzef1 Zzz3
+## rowData names(0):
+## colnames(379): SRR2140028 SRR2140022 ... SRR2139341 SRR2139336
+## colData names(22): NREADS NALIGNED ... Animal.ID passes_qc_checks_s
+## reducedDimNames(0):
+## altExpNames(1): ERCC</code></pre>
+<p>Los datos que descargamos son datos digamos que crudos, así que necesitamos correr un par de análisis usando <code>scater</code> para que sea más interesante el ejemplo. No es el objetivo de este mini curso explicar esos pasos, aunque a grandes rasgos, nos van a ayudar a que podamos comparar las diferentes células. También nos ayudará a visualizar las células.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Normalizamos los datos</span></span>
+<span id="cb29-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-2" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">logNormCounts</span>(sce, <span class="at">exprs_values =</span> <span class="st">&quot;tophat_counts&quot;</span>)</span>
+<span id="cb29-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Obtenemos dimensiones reducidas usando primero un análisis de componentes</span></span>
+<span id="cb29-5"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="do">## principales y luego con tSNE</span></span>
+<span id="cb29-6"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
+<span id="cb29-7"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-7" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">runPCA</span>(sce)</span>
+<span id="cb29-8"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-8" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">runTSNE</span>(sce)</span>
+<span id="cb29-9"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Ahora tenemos datos de PCA y TSNE en nuestro objeto de R</span></span>
+<span id="cb29-11"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">reducedDimNames</span>(sce)</span></code></pre></div>
+<pre><code>## [1] &quot;PCA&quot;  &quot;TSNE&quot;</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Podemos ahora calcular unas variables a lo largo de nuestros genes</span></span>
+<span id="cb31-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="do">## tal como la expresión media del gene en las células</span></span>
+<span id="cb31-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="do">## y la varianza</span></span>
+<span id="cb31-4"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rowData</span>(sce)<span class="sc">$</span>mean_log <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(<span class="fu">logcounts</span>(sce))</span>
+<span id="cb31-5"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rowData</span>(sce)<span class="sc">$</span>var_log <span class="ot">&lt;-</span> <span class="fu">apply</span>(<span class="fu">logcounts</span>(sce), <span class="dv">1</span>, var)</span>
+<span id="cb31-6"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rowData</span>(sce)</span></code></pre></div>
+<pre><code>## DataFrame with 20816 rows and 2 columns
+##                mean_log   var_log
+##               &lt;numeric&gt; &lt;numeric&gt;
+## 0610007P14Rik 7.9369535   9.37109
+## 0610009B22Rik 6.7572139  10.80402
+## 0610009L18Rik 0.0881306   0.40976
+## 0610009O20Rik 3.6084644  14.97973
+## 0610010F05Rik 6.5254121  13.45587
+## ...                 ...       ...
+## Zyg11a        0.0854769  0.109352
+## Zyg11b        8.9813448  3.988757
+## Zyx           2.4291810 11.860900
+## Zzef1         2.9058253 11.223440
+## Zzz3          4.4118629 15.179005</code></pre>
+<p>Ahora nuestro objeto <code>sce</code> es más complejo y tiene más información que podremos visualizar con <code>iSEE</code>.</p>
+<ul>
+<li><code>recount3</code></li>
+</ul>
+<p>Para que tengan más datos de ejemplo, usaremos datos del proyecto de <code>recount3</code> vía el cual pueden descargar información de más de 700,000 muestras de RNA-seq de ratón o humano tal como describimos en <a href="http://rna.recount.bio/" class="uri">http://rna.recount.bio/</a>. La idea es que pueden obtener objetos de R del tipo <code>RangedSummarizedExperiment</code> que también podemos visualizar con <code>iSEE</code>.</p>
+<p><a href="https://f1000research.com/articles/6-1558"><img src="https://f1000researchdata.s3.amazonaws.com/manuscripts/13233/8a00ef7e-4c4b-4d53-bd4f-2a28a23ec216_figure2.gif" /></a></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Revisemos todos los proyectos con datos de humano en recount3</span></span>
+<span id="cb33-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb33-2" aria-hidden="true" tabindex="-1"></a>human_projects <span class="ot">&lt;-</span> <span class="fu">available_projects</span>()</span>
+<span id="cb33-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Veamos cuantos proyectos hay</span></span>
+<span id="cb33-5"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(human_projects)</span></code></pre></div>
+<pre><code>## [1] 8742</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Encuentra tu proyecto de interés. Aquí usaremos</span></span>
+<span id="cb35-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="do">## SRP009615 de ejemplo</span></span>
+<span id="cb35-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-3" aria-hidden="true" tabindex="-1"></a>proj_info <span class="ot">&lt;-</span> <span class="fu">subset</span>(</span>
+<span id="cb35-4"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-4" aria-hidden="true" tabindex="-1"></a>    human_projects,</span>
+<span id="cb35-5"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-5" aria-hidden="true" tabindex="-1"></a>    project <span class="sc">==</span> <span class="st">&quot;SRP009615&quot;</span> <span class="sc">&amp;</span> project_type <span class="sc">==</span> <span class="st">&quot;data_sources&quot;</span></span>
+<span id="cb35-6"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-7"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Crea un objetio de tipo RangedSummarizedExperiment (RSE)</span></span>
+<span id="cb35-8"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="do">## con la información a nivel de genes</span></span>
+<span id="cb35-9"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-9" aria-hidden="true" tabindex="-1"></a>rse_gene_SRP009615 <span class="ot">&lt;-</span> <span class="fu">create_rse</span>(proj_info)</span>
+<span id="cb35-10"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Explora el objeto RSE</span></span>
+<span id="cb35-11"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb35-11" aria-hidden="true" tabindex="-1"></a>rse_gene_SRP009615</span></code></pre></div>
+<pre><code>## class: RangedSummarizedExperiment 
+## dim: 63856 12 
+## metadata(8): time_created recount3_version ... annotation recount3_url
+## assays(1): raw_counts
+## rownames(63856): ENSG00000278704.1 ENSG00000277400.1 ... ENSG00000182484.15_PAR_Y ENSG00000227159.8_PAR_Y
+## rowData names(10): source type ... havana_gene tag
+## colnames(12): SRR387777 SRR387778 ... SRR389077 SRR389078
+## colData names(175): rail_id external_id ... recount_pred.curated.cell_line BigWigURL</code></pre>
+<p>Los objetos de <code>recount3</code> tienen ciertas propiedades que aquí no explicaremos. Pero bueno, básicamente los siguientes comandos los querrán usar con los diferentes datos que descarguen de <code>recount3</code>.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Convirtamos las cuentas por nucleotido a cuentas por lectura</span></span>
+<span id="cb37-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="do">## usando compute_read_counts().</span></span>
+<span id="cb37-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Para otras transformaciones como RPKM y TPM, revisa transform_counts().</span></span>
+<span id="cb37-4"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">assay</span>(rse_gene_SRP009615, <span class="st">&quot;counts&quot;</span>) <span class="ot">&lt;-</span> <span class="fu">compute_read_counts</span>(rse_gene_SRP009615)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Para este estudio en específico, hagamos más fácil de usar la</span></span>
+<span id="cb38-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="do">## información del experimento</span></span>
+<span id="cb38-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb38-3" aria-hidden="true" tabindex="-1"></a>rse_gene_SRP009615 <span class="ot">&lt;-</span> <span class="fu">expand_sra_attributes</span>(rse_gene_SRP009615)</span>
+<span id="cb38-4"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colData</span>(rse_gene_SRP009615)[</span>
+<span id="cb38-5"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb38-5" aria-hidden="true" tabindex="-1"></a>    ,</span>
+<span id="cb38-6"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;^sra_attribute&quot;</span>, <span class="fu">colnames</span>(<span class="fu">colData</span>(rse_gene_SRP009615)))</span>
+<span id="cb38-7"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb38-7" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
+<pre><code>## DataFrame with 12 rows and 4 columns
+##           sra_attribute.cells sra_attribute.shRNA_expression sra_attribute.source_name sra_attribute.treatment
+##                   &lt;character&gt;                    &lt;character&gt;               &lt;character&gt;             &lt;character&gt;
+## SRR387777                K562                             no                    SL2933               Puromycin
+## SRR387778                K562             yes, targeting SRF                    SL2934  Puromycin, doxycycline
+## SRR387779                K562                             no                    SL5265               Puromycin
+## SRR387780                K562              yes targeting SRF                    SL3141  Puromycin, doxycycline
+## SRR389079                K562            no shRNA expression                    SL6485               Puromycin
+## ...                       ...                            ...                       ...                     ...
+## SRR389082                K562         expressing shRNA tar..                    SL2592  Puromycin, doxycycline
+## SRR389083                K562            no shRNA expression                    SL4337               Puromycin
+## SRR389084                K562         expressing shRNA tar..                    SL4326  Puromycin, doxycycline
+## SRR389077                K562            no shRNA expression                    SL1584               Puromycin
+## SRR389078                K562         expressing shRNA tar..                    SL1583  Puromycin, doxycycline</code></pre>
+</div>
+<div id="explorando-con-isee" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Explorando con iSEE</h2>
+<div id="sce" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> sce</h3>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">interactive</span>()) {</span>
+<span id="cb40-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">iSEE</span>(sce, <span class="at">appTitle =</span> <span class="st">&quot;Aprendiendo a usar iSEE&quot;</span>)</span>
+<span id="cb40-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb40-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<ul>
+<li>Exploremos varias variables (column data) en los PCA y TSNE. ¿Qué variable separa los grupos de muestras?</li>
+<li>¿Qué muestra tiene la mayor cantidad de número de lecturas (NREADS)?</li>
+<li>Aprendamos a hacer _facet_s en el panel que muestra información de los genes (feature assay plot 1) y a ligar ese panel a la tabla con información de los genes</li>
+<li>Comparemos el número de lecturas (NREADS) usando _facet_s por disección. ¿Alguna nos llama la atención? Podemos usar la columna de “passes qc checks”.</li>
+<li>Hagamos una gráfica de la media (eje X) vs la varianza (eje Y) de expresión de los genes. ¿Vemos algún patrón?</li>
+</ul>
+</div>
+<div id="ejercicio" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Ejercicio</h3>
+<ul>
+<li>Ejercicio: <a href="https://lcolladotor.github.io/rnaseq_LCG-UNAM_2021/datos-de-rna-seq-a-trav%C3%A9s-de-recount3.html#ejercicio-1" class="uri">https://lcolladotor.github.io/rnaseq_LCG-UNAM_2021/datos-de-rna-seq-a-trav%C3%A9s-de-recount3.html#ejercicio-1</a></li>
+</ul>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">interactive</span>()) {</span>
+<span id="cb41-2"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">iSEE</span>(rse_gene_SRP009615, <span class="at">appTitle =</span> <span class="st">&quot;iSEE con datos de recount3&quot;</span>)</span>
+<span id="cb41-3"><a href="exploración-interactiva-de-datos-transcriptómicos-con-isee.html#cb41-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="datos-reales" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Datos reales</h3>
+<p>Datos de <a href="https://www.biorxiv.org/content/10.1101/2020.10.07.329839v1.full" class="uri">https://www.biorxiv.org/content/10.1101/2020.10.07.329839v1.full</a> que pueden ver en pagínas web creadas con <code>iSEE</code> a través de <a href="https://github.com/LieberInstitute/10xPilot_snRNAseq-human#explore-the-data-interactively" class="uri">https://github.com/LieberInstitute/10xPilot_snRNAseq-human#explore-the-data-interactively</a>. Para lograr esto subimos el resultado de <code>iSEE</code> a <a href="https://shinyapps.io" class="uri">https://shinyapps.io</a>.</p>
+</div>
+</div>
+<div id="más-material" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Más material</h2>
+<p>Si les llamó la atención <code>iSEE</code> y <code>recount3</code>, vía <a href="https://lcolladotor.github.io/rnaseq_LCG-UNAM_2021" class="uri">https://lcolladotor.github.io/rnaseq_LCG-UNAM_2021</a> pueden aprender más sobre estos paquetes.</p>
 <p><a href="https://comunidadbioinfo.github.io/es/post/cs_and_s_event_fund_award/#.YJH-wbVKj8A"><img src="https://comunidadbioinfo.github.io/post/2021-01-27-cs_and_s_event_fund_award/spanish_cs_and_s_award.jpeg" width="400px" align="center"/></a></p>
 
+</div>
 </div>
             </section>
 
