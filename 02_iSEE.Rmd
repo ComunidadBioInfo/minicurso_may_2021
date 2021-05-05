@@ -55,7 +55,7 @@ Los datos que descargamos son datos digamos que crudos, así que necesitamos cor
 
 
 
-```{r "procesar_datos}
+```{r "procesar_datos"}
 ## Normalizamos los datos
 sce <- logNormCounts(sce, exprs_values="tophat_counts")
 
