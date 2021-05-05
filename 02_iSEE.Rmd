@@ -4,10 +4,159 @@ _El código de R de este archivo está disponbie vía [GitHub](https://github.co
 
 ```{r "cargar_librerias_iSEE"}
 ## Carguemos las librerías que vamos a usar para esta parte del mini curso
+
+## Infraestructura
+library("SummarizedExperiment")
+library("SingleCellExperiment")
+## library("SpatialExperiment") ## A partir de Bioconductor 3.13
+## que estará disponible a finales de mayo 2021
+
+## Para visualizar los datos
 library("iSEE")
 library("scRNAseq")
+library("scater")
 library("recount3")
 ```
 
+## Infraestructura para datos tránscriptomicos
+
+* [SummarizedExperiment](https://bioconductor.org/packages/SummarizedExperiment)
+
+<img src="https://www.researchgate.net/profile/Pascal-Martin-6/publication/274256021/figure/fig3/AS:294713816043527@1447276657416/Structure-of-summarizedExperiment-objects.png" width="600px" />
+
+* [SingleCellExperiment](https://bioconductor.org/packages/SingleCellExperiment)
+
+<img src="https://raw.githubusercontent.com/Bioconductor/OSCABase/images/images/SingleCellExperiment.png" width="600px" />
+
+* Revisemos las diapositivas 31 a 43 de la siguiente presentación
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Thanks to Pete <a href="https://twitter.com/PeteHaitch?ref_src=twsrc%5Etfw">@PeteHaitch</a> &amp; <a href="https://twitter.com/hashtag/OSCA?src=hash&amp;ref_src=twsrc%5Etfw">#OSCA</a> ❤️ I&#39;m now ready for my Human Cell Atlas - Latin America presentation on &quot;Getting started with <a href="https://twitter.com/hashtag/scRNA?src=hash&amp;ref_src=twsrc%5Etfw">#scRNA</a>-seq analyses with <a href="https://twitter.com/Bioconductor?ref_src=twsrc%5Etfw">@Bioconductor</a>&quot; 🎉<br><br>📔 <a href="https://t.co/nEWZcnadyh">https://t.co/nEWZcnadyh</a><br>💻 <a href="https://t.co/7pXDTQRpF0">https://t.co/7pXDTQRpF0</a><a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/CDSBMexico?ref_src=twsrc%5Etfw">@CDSBMexico</a> <a href="https://twitter.com/humancellatlas?ref_src=twsrc%5Etfw">@humancellatlas</a> <a href="https://twitter.com/hashtag/LatAm?src=hash&amp;ref_src=twsrc%5Etfw">#LatAm</a> <a href="https://t.co/Otg8rdSlYW">pic.twitter.com/Otg8rdSlYW</a></p>&mdash; 🇲🇽 Leonardo Collado-Torres (@lcolladotor) <a href="https://twitter.com/lcolladotor/status/1388934387090305025?ref_src=twsrc%5Etfw">May 2, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+* Incluso va más allá con [SpatialExperiment](https://bioconductor.org/packages/SpatialExperiment)
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Are you working with spatial transcriptomics data such as Visium from <a href="https://twitter.com/10xGenomics?ref_src=twsrc%5Etfw">@10xGenomics</a>? Then you&#39;ll be interested in <a href="https://twitter.com/hashtag/SpatialExperiment?src=hash&amp;ref_src=twsrc%5Etfw">#SpatialExperiment</a> 📦 led by <a href="https://twitter.com/drighelli?ref_src=twsrc%5Etfw">@drighelli</a> <a href="https://twitter.com/lmwebr?ref_src=twsrc%5Etfw">@lmwebr</a> <a href="https://twitter.com/CrowellHL?ref_src=twsrc%5Etfw">@CrowellHL</a> with contributions by <a href="https://twitter.com/PardoBree?ref_src=twsrc%5Etfw">@PardoBree</a> <a href="https://twitter.com/shazanfar?ref_src=twsrc%5Etfw">@shazanfar</a> A Lun <a href="https://twitter.com/stephaniehicks?ref_src=twsrc%5Etfw">@stephaniehicks</a> <a href="https://twitter.com/drisso1893?ref_src=twsrc%5Etfw">@drisso1893</a> 🌟<br><br>📜 <a href="https://t.co/r36qlakRJe">https://t.co/r36qlakRJe</a> <a href="https://t.co/cWIiwLFitV">pic.twitter.com/cWIiwLFitV</a></p>&mdash; 🇲🇽 Leonardo Collado-Torres (@lcolladotor) <a href="https://twitter.com/lcolladotor/status/1355208674856329218?ref_src=twsrc%5Etfw">January 29, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## Datos públicos
+
+* `scRNAseq`
+
+[scRNAseq](https://bioconductor.org/packages/scRNAseq) es un paquete de Bioconductor que creó Aaron Lun para poder tener varios datos de ejemplo de scRNA-seq (secuenciación masiva de ARN de células únicas) para poder demostrar sus métodos estadísticos. Ese paquete lo usan en `iSEE` para obtener datos de ejemplo y también lo usan mucho en _Orchestrating Single Cell Analysis (OSCA) with Bioconductor_ http://bioconductor.org/books/release/OSCA/.
+
+A continuación vamos a descargar unos datos de scRNA-seq que usan en los ejemplos de `iSEE` en http://bioconductor.org/packages/release/bioc/vignettes/iSEE/inst/doc/basic.html#2_Setting_up_the_data. `scRNAseq` usa otro paquete de Bioconductor llamado `ExperimentHub` para descargar los archivos y organizarlos en un lugar de tal forma que si corremos el código otra vez en la misma computadora, no tendremos que volver a descargar los archivos. Es decir, crea un cache local.
+
+```{r "datos_scRNAseq"}
+## Descarguemos datos de ejemplo de scRNA-seq del proyecto de
+## Tasic et al 2016
+sce <- ReprocessedAllenData(assays = "tophat_counts")
+sce
+```
+
+Los datos que descargamos son datos digamos que crudos, así que necesitamos correr un par de análisis usando `scater` para que sea más interesante el ejemplo. No es el objetivo de este mini curso explicar esos pasos, aunque a grandes rasgos, nos van a ayudar a que podamos comparar las diferentes células. También nos ayudará a visualizar las células.
+
+
+
+```{r "procesar_datos}
+## Normalizamos los datos
+sce <- logNormCounts(sce, exprs_values="tophat_counts")
+
+## Obtenemos dimensiones reducidas usando primero un análisis de componentes
+## principales y luego con tSNE
+set.seed(1000)
+sce <- runPCA(sce)
+sce <- runTSNE(sce)
+
+## Ahora tenemos datos de PCA y TSNE en nuestro objeto de R
+reducedDimNames(sce)
+
+## Podemos ahora calcular unas variables a lo largo de nuestros genes
+## tal como la expresión media del gene en las células
+## y la varianza
+rowData(sce)$mean_log <- rowMeans(logcounts(sce))
+rowData(sce)$var_log <- apply(logcounts(sce), 1, var)
+rowData(sce)
+```
+
+Ahora nuestro objeto `sce` es más complejo y tiene más información que podremos visualizar con `iSEE`.
+
+
+* `recount3`
+
+Para que tengan más datos de ejemplo, usaremos datos del proyecto de `recount3` vía el cual pueden descargar información de más de 700,000 muestras de RNA-seq de ratón o humano tal como describimos en http://rna.recount.bio/. La idea es que pueden obtener objetos de R del tipo `RangedSummarizedExperiment` que también podemos visualizar con `iSEE`.
+
+<a href="https://f1000research.com/articles/6-1558"><img src="https://f1000researchdata.s3.amazonaws.com/manuscripts/13233/8a00ef7e-4c4b-4d53-bd4f-2a28a23ec216_figure2.gif" /></a>
+
+```{r 'recount3_quick_example'}
+## Revisemos todos los proyectos con datos de humano en recount3
+human_projects <- available_projects()
+
+## Encuentra tu proyecto de interés. Aquí usaremos
+## SRP009615 de ejemplo
+proj_info <- subset(
+    human_projects,
+    project == "SRP009615" & project_type == "data_sources"
+)
+## Crea un objetio de tipo RangedSummarizedExperiment (RSE)
+## con la información a nivel de genes
+rse_gene_SRP009615 <- create_rse(proj_info)
+## Explora el objeto RSE
+rse_gene_SRP009615
+```
+
+Los objetos de `recount3` tienen ciertas propiedades que aquí no explicaremos. Pero bueno, básicamente los siguientes comandos los querrán usar con los diferentes datos que descarguen de `recount3`.
+
+```{r "tranform_counts"}
+## Convirtamos las cuentas por nucleotido a cuentas por lectura
+## usando compute_read_counts().
+## Para otras transformaciones como RPKM y TPM, revisa transform_counts().
+assay(rse_gene_SRP009615, "counts") <- compute_read_counts(rse_gene_SRP009615)
+```
+
+```{r "expand_attributes"}
+## Para este estudio en específico, hagamos más fácil de usar la
+## información del experimento
+rse_gene_SRP009615 <- expand_sra_attributes(rse_gene_SRP009615)
+colData(rse_gene_SRP009615)[
+    ,
+    grepl("^sra_attribute", colnames(colData(rse_gene_SRP009615)))
+]
+```
+
+## Explorando con iSEE
+
+
+### sce
+
+```{r "explora_sce_con_iSEE"}
+if (interactive()) {
+    iSEE(sce, appTitle = "Aprendiendo a usar iSEE")
+}
+```
+
+* Exploremos varias variables (column data) en los PCA y TSNE. ¿Qué variable separa los grupos de muestras?
+* ¿Qué muestra tiene la mayor cantidad de número de lecturas (NREADS)?
+* Aprendamos a hacer _facet_s en el panel que muestra información de los genes (feature assay plot 1) y a ligar ese panel a la tabla con información de los genes
+* Comparemos el número de lecturas (NREADS) usando _facet_s por disección. ¿Alguna nos llama la atención? Podemos usar la columna de "passes qc checks".
+* Hagamos una gráfica de la media (eje X) vs la varianza (eje Y) de expresión de los genes. ¿Vemos algún patrón?
+
+
+### Ejercicio
+
+
+* Ejercicio: https://lcolladotor.github.io/rnaseq_LCG-UNAM_2021/datos-de-rna-seq-a-trav%C3%A9s-de-recount3.html#ejercicio-1
+
+```{r "explora_rse_gene_SRP009615"}
+if (interactive()) {
+    iSEE(rse_gene_SRP009615)
+}
+```
+
+### Datos reales
+
+Datos de https://www.biorxiv.org/content/10.1101/2020.10.07.329839v1.full que pueden ver en pagínas web creadas con `iSEE` a través de https://github.com/LieberInstitute/10xPilot_snRNAseq-human#explore-the-data-interactively. Para lograr esto subimos el resultado de `iSEE` a https://shinyapps.io.
+
+
+## Más material
+
+Si les llamó la atención `iSEE` y `recount3`, vía https://lcolladotor.github.io/rnaseq_LCG-UNAM_2021 pueden aprender más sobre estos paquetes.
 
 <a href="https://comunidadbioinfo.github.io/es/post/cs_and_s_event_fund_award/#.YJH-wbVKj8A"><img src="https://comunidadbioinfo.github.io/post/2021-01-27-cs_and_s_event_fund_award/spanish_cs_and_s_award.jpeg" width="400px" align="center"/></a>
