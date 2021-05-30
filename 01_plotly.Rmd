@@ -1,34 +1,147 @@
 # Exploración interactiva de datos con plotly
 
+author: "Mike Jeziorski"
+date: "5/13/2021"
+
 _El código de R de este archivo está disponbie vía [GitHub](https://github.com/ComunidadBioInfo/minicurso_mayo_2021/blob/main/01_plotly.R)._
 
-```{r "cargar_librerias_plotly"}
-## Carguemos las librerías que vamos a usar para esta parte del mini curso
-library("palmerpenguins")
-library("ggplot2")
-library("plotly")
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# install.packages(c("tidyverse", "plotly", "palmerpenguins"))
+
+library(tidyverse) # incluye dplyr y ggplot2
+library(plotly)
+library(palmerpenguins) # juego de datos científicos
+```
+
+## Graficando datos de palmerpenguins con plotly
+
+```{r}
+glimpse(penguins)
+summary(penguins)
+```
+
+```{r}
+penguins_hm <- penguins %>%
+      filter(!is.na(sex)) %>%
+      count(species, island, sex) %>%
+      ggplot(aes(x = sex, y = species, fill = n)) +
+      geom_tile() +
+      facet_grid(~ island) +
+      theme_classic() +
+      labs(title = "Distribution of penguins")
+```
+
+```{r}
+ggplotly(penguins_hm)
+```
+
+```{r}
+penguins_sp <- penguins %>%
+      filter(!is.na(sex)) %>%
+      ggplot(aes(x = bill_length_mm, y = body_mass_g, shape = sex, color = species, 
+                 text = paste0("Sex: ", sex,
+                               "\nIsland: ", island,
+                               "\nYear: ", year))) +
+      geom_point() +
+      scale_shape_manual(values = c(1, 16)) +
+      labs(x = "Bill length (mm)", y = "Body mass (g)")
+```
+
+```{r}
+plotly::ggplotly(penguins_sp, tooltip = "text")
+```
+
+```{r}
+penguins_sp_i <- penguins %>%
+   filter(!is.na(sex)) %>%
+   plotly::plot_ly(x = ~bill_length_mm, y = ~body_mass_g, color = ~species,
+                type = "scatter", mode = "markers")
 ```
 
 
-Ejemplo
-
-```{r "plotly_ejemplo"}
-## De ?plotly::ggplotly
-ggpenguins <- qplot(bill_length_mm,
-    body_mass_g,
-    data = palmerpenguins::penguins,
-    color = species
-)
-
-## Versión estática creada con ggplot2
-ggpenguins
+```{r}
+# install.packages("htmlwidgets")
+library(htmlwidgets)
+htmlwidgets::saveWidget(penguins_sp_i, "penguins_scatterplot.html")
 ```
 
-```{r "plotly_ejemplo_parte2"}
-## Ahora  en versión interactiva
-ggplotly(ggpenguins)
+## Graficando datos de COVID con plotly
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# install.packages(c("tidyverse", "plotly"))
+
+library(tidyverse)
+library(plotly)
 ```
 
+Datos del la Secretaría de Salud, Gobierno de México
+Fuente de los datos: <https://datos.gob.mx/busca/dataset/informacion-referente-a-casos-covid-19-en-mexico>
+Datos crudos: <https://www.gob.mx/salud/documentos/datos-abiertos-152127>
+
+El archivo "qro_raw_210513.csv" contiene los datos para el 13 de mayo de 2021, filtrado para los residentes del estado de Querétaro.
+
+```{r}
+qro_raw <- readr::read_csv("qro_raw_210513.csv")
+```
+
+```{r, warning=FALSE}
+qro_covid_pos <- qro_raw %>%
+      
+      mutate(sexo = case_when(SEXO == 1 ~ "Mujer",
+                              SEXO == 2 ~ "Hombre",
+                              SEXO == 99 ~ NA_character_),
+             tipo_paciente = case_when(TIPO_PACIENTE == 1 ~ "Ambulatorio",
+                                       TIPO_PACIENTE == 2 ~ "Hospitalizado",
+                                       TIPO_PACIENTE == 99 ~ NA_character_)) %>%
+      filter(RESULTADO_LAB == 1) %>%
+      ggplot(aes(x = FECHA_INGRESO, fill = as.factor(tipo_paciente))) +
+      geom_bar() +
+      labs(x = "Fecha de visita", y = "Total",
+           title = "Pacientes positivos en el Edo. de Querétaro (muertos en morado)",
+           caption = "Fuente: Dirección General de Epidemiología, Gobierno de México") +
+      scale_fill_manual(name = "Tipo de paciente", 
+                        labels = c("Ambulatorio", "Hospitalizado"),
+                        values = c("blue", "red")) +
+      geom_bar(aes(x = FECHA_DEF), fill = "purple") +
+      theme_classic()
+```
+
+```{r, warning=FALSE}
+ggplotly(qro_covid_pos)
+```
+
+```{r, warning=FALSE}
+def_emb <- filter(qro_raw, RESULTADO_LAB == 1, EMBARAZO == 1, !is.na(FECHA_DEF)) %>%
+      nrow()
+qro_covid_emb <- qro_raw %>%
+      mutate(sexo = case_when(SEXO == 1 ~ "Mujer",
+                              SEXO == 2 ~ "Hombre",
+                              SEXO == 99 ~ NA_character_),
+             tipo_paciente = case_when(TIPO_PACIENTE == 1 ~ "Ambulatorio",
+                                       TIPO_PACIENTE == 2 ~ "Hospitalizado",
+                                       TIPO_PACIENTE == 99 ~ NA_character_)) %>%
+      filter(RESULTADO_LAB == 1, EMBARAZO == 1) %>%
+      ggplot(aes(x = FECHA_INGRESO, y = EDAD, color = as.factor(TIPO_PACIENTE))) +
+      geom_point() +
+      labs(x = "Fecha de ingreso", y = "Edad",
+           title = "Mujeres embarazadas positivas para el virus en Edo. de Querétaro",
+           subtitle = paste0("Número de defunciones: ", def_emb),
+           caption = "Fuente: Dirección General de Epidemiología, Gobierno de México") +
+      scale_color_manual(name = "Tipo de paciente", 
+                        labels = c("Ambulatoria", "Hospitalizada"),
+                        values = c("blue", "red")) +
+      ylim(c(0, 50)) +
+      theme_classic()
+```
+
+```{r}
+ggplotly(qro_covid_emb, tooltip = c("FECHA_INGRESO", "EDAD"))
+```
 
 
 
