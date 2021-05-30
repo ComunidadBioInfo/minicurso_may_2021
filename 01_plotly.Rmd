@@ -70,14 +70,6 @@ htmlwidgets::saveWidget(penguins_sp_i, "penguins_scatterplot.html")
 
 ## Graficando datos de COVID con plotly
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-# install.packages(c("tidyverse", "plotly"))
-
-library(tidyverse)
-library(plotly)
-```
 
 Datos del la Secretaría de Salud, Gobierno de México
 Fuente de los datos: <https://datos.gob.mx/busca/dataset/informacion-referente-a-casos-covid-19-en-mexico>
