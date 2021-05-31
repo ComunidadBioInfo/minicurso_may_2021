@@ -1,22 +1,27 @@
 # Exploración interactiva de datos con plotly
 
-author: "Mike Jeziorski"
-date: "5/13/2021"
+Author: Mike Jeziorski  
+Date: 5/13/2021
 
 _El código de R de este archivo está disponbie vía [GitHub](https://github.com/ComunidadBioInfo/minicurso_mayo_2021/blob/main/01_plotly.R)._
 
+## Introducción a plotly
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-# install.packages(c("tidyverse", "plotly", "palmerpenguins"))
-
-library(tidyverse) # incluye dplyr y ggplot2
-library(plotly)
-library(palmerpenguins) # juego de datos científicos
+```{r}
+knitr::include_url("introduccion.html")
 ```
 
 ## Graficando datos de palmerpenguins con plotly
+
+```{r}
+
+# install.packages(c("tidyverse", "plotly", "palmerpenguins"))
+
+library(palmerpenguins) # juego de datos científicos
+library(tidyverse) # incluye dplyr y ggplot2
+library(plotly)
+```
+
 
 ```{r}
 glimpse(penguins)
@@ -26,7 +31,7 @@ summary(penguins)
 ```{r}
 penguins_hm <- penguins %>%
       filter(!is.na(sex)) %>%
-      count(species, island, sex) %>%
+      dplyr::count(species, island, sex) %>%
       ggplot(aes(x = sex, y = species, fill = n)) +
       geom_tile() +
       facet_grid(~ island) +

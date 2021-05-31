@@ -61,6 +61,7 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 remotes::install_cran("palmerpenguins")
 remotes::install_cran("ggplot2")
 remotes::install_cran("plotly")
+remotes::install_cran("dplyr")
 
 ## Sección iSEE
 remotes::install_cran("BiocManager")
@@ -99,7 +100,7 @@ https://forms.gle/xPMSkovBDveyegZt8
 
 Details on the R version used for making this book. The source code is available at [`lcolladotor/rnaseq_LCG-UNAM_2021`](https://github.com/lcolladotor/rnaseq_LCG-UNAM_2021).
 
-```{r session_packages, eval = TRUE, message = FALSE}
+```{r session_packages, eval = FALSE, message = FALSE}
 ## Load the package at the top of your script
 library("sessioninfo")
 
@@ -107,6 +108,7 @@ library("sessioninfo")
 library("palmerpenguins")
 library("ggplot2")
 library("plotly")
+library("dplyr")
 
 ## iSEE
 library("iSEE")
@@ -118,6 +120,7 @@ library("recount3")
 
 ```{r session_info}
 ## Reproducibility information
+library("sessioninfo")
 options(width = 120)
 session_info()
 proc.time()
