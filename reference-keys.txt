@@ -1,4 +1,7 @@
 exploración-interactiva-de-datos-con-plotly
+introducción-a-plotly
+graficando-datos-de-palmerpenguins-con-plotly
+graficando-datos-de-covid-con-plotly
 exploración-interactiva-de-datos-transcriptómicos-con-isee
 infraestructura-para-datos-tránscriptomicos
 datos-públicos
