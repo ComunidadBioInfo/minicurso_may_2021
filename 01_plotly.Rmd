@@ -7,9 +7,8 @@ _El código de R de este archivo está disponbie vía [GitHub](https://github.co
 
 ## Introducción a plotly
 
-```{r}
-knitr::include_url("introduccion.html")
-```
+Link a la presentación [Introducción a plotly.](https://comunidadbioinfo.github.io/minicurso_mayo_2021/introduccion.html#1)
+
 
 ## Graficando datos de palmerpenguins con plotly
 
